@@ -1,0 +1,13 @@
+{
+  "name": "ScreenREC",
+  "description": "Free, open source screen recorder for Chrome and ChromeOS",
+  "author": "Joe Kreydt",
+  "version": "0.1",
+  "permissions": ["desktopCapture"],
+  "manifest_version": 2,
+  "app": {
+    "background": {
+      "scripts": ["background.js"]
+    }
+  }
+}
