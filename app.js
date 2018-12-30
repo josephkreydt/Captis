@@ -1,4 +1,4 @@
-document.getElementById('startRecording').addEventListener('click', recordClick, false);
+document.getElementById('selectMedia').addEventListener('click', recordClick, false);
 
 //https://developer.chrome.com/extensions/desktopCapture
 function recordClick() {
