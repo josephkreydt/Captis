@@ -38,6 +38,7 @@ function startStream(stream) {
     //video.src = URL.createObjectURL(stream); //converts video binary code into URL
     //^^^ above was deprecated (or soon will be)
     // https://www.chromestatus.com/features/5618491470118912
+    console.log(stream);
     try {
         video.srcObject = stream;
     } catch (error) {
@@ -49,6 +50,13 @@ function failedStream() {
     console.log("Stream failure.");
 }
 
+
+
 // FIGURE OUT HOW TO CAPTURE THE MEDIA AND SAVE TO FILE
+// https://developers.google.com/web/updates/2016/01/mediarecorder
+// https://developers.google.com/web/updates/2016/10/capture-stream
+// https://webrtc.github.io/samples/src/content/getusermedia/record/
+
 // https://addpipe.com/blog/mediarecorder-api/
 // https://developer.mozilla.org/en-US/docs/Web/API/MediaStream_Recording_API
+// https://developer.mozilla.org/en-US/docs/Web/API/MediaStream_Recording_API/Recording_a_media_element
