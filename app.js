@@ -31,8 +31,6 @@ function accessToRecord(id, audioState) {
     }).then(startStream).catch(failedStream);
 }
 
-
-
 function startStream(stream) {
     var video = document.getElementById('mainScreen');
     //video.src = URL.createObjectURL(stream); //converts video binary code into URL
@@ -44,6 +42,52 @@ function startStream(stream) {
     } catch (error) {
         video.src = URL.createObjectURL(stream);
     }
+    
+    //next episode. hey ey ey ey ey
+    var options = {mimeType: 'video/mp4'};
+    mediaRecorder = new MediaRecorder(stream);
+    var recordedChunks = [];
+    
+    mediaRecorder.ondataavailable = handleDataAvailable;
+    //mediaRecorder.start();
+    
+    function handleDataAvailable(event) {
+        if (event.data.size > 0) {
+            recordedChunks.push(event.data);
+            console.log("data is being handled properly")
+        } else {
+            console.log("handleDataAvailable function issue.")
+        }
+    }
+    
+    document.getElementById("startRecording").addEventListener("click", function(){
+        mediaRecorder.start();
+        console.log("recording started successfully");
+    });
+    
+    document.getElementById("stopRecording").addEventListener("click", function(){
+        mediaRecorder.stop();
+        console.log("recording stopped successfully");
+    });
+    
+    console.log(recordedChunks);
+    const downloadButton = document.querySelector('button#downloadButton');
+    downloadButton.addEventListener('click', function() {
+        const blob = new Blob(recordedChunks, {type: 'video/webm'});
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.style.display = 'none';
+        a.href = url;
+        a.download = 'test.webm';
+        document.body.appendChild(a);
+        a.click();
+        console.log("download button click recognized");
+        setTimeout(() => {
+            document.body.removeChild(a);
+            window.URL.revokeObjectURL(url);
+        }, 100);
+    });
+    
 }
 
 function failedStream() {
