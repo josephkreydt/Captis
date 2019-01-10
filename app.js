@@ -57,6 +57,8 @@ function startStream(stream) {
         }
     }
     
+    
+    var interval;
     document.getElementById("startRecording").addEventListener("click", function(){
         mediaRecorder.start();
         
@@ -66,7 +68,7 @@ function startStream(stream) {
         var appendMinutes = document.getElementById("minutes");
         var appendSeconds = document.getElementById("seconds");
         var appendTens = document.getElementById("tens");
-        var interval;
+
         
         clearInterval(interval);
         interval = setInterval(startCounter, 10);
@@ -103,6 +105,7 @@ function startStream(stream) {
     
     document.getElementById("stopRecording").addEventListener("click", function(){
         mediaRecorder.stop();
+        clearInterval(interval);
         console.log("recording stopped successfully");
     });
     
