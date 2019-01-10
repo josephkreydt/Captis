@@ -24,7 +24,6 @@ function accessToRecord(id, audioState) {
             mandatory: {
                 chromeMediaSource: "desktop",
                 chromeMediaSourceId: id,
-                maxFrameRate: 30
 //https://stackoverflow.com/questions/44353801/how-to-add-audio-in-desktop-capture-in-chrome-extension
             }
         }
@@ -43,13 +42,11 @@ function startStream(stream) {
         video.src = URL.createObjectURL(stream);
     }
     
-    //next episode. hey ey ey ey ey
     var options = {mimeType: 'video/mp4'};
     mediaRecorder = new MediaRecorder(stream);
     var recordedChunks = [];
     
     mediaRecorder.ondataavailable = handleDataAvailable;
-    //mediaRecorder.start();
     
     function handleDataAvailable(event) {
         if (event.data.size > 0) {
@@ -70,7 +67,6 @@ function startStream(stream) {
         console.log("recording stopped successfully");
     });
     
-    console.log(recordedChunks);
     const downloadButton = document.querySelector('button#downloadButton');
     downloadButton.addEventListener('click', function() {
         const blob = new Blob(recordedChunks, {type: 'video/webm'});
@@ -96,7 +92,6 @@ function failedStream() {
 
 
 
-// FIGURE OUT HOW TO CAPTURE THE MEDIA AND SAVE TO FILE
 // https://developers.google.com/web/updates/2016/01/mediarecorder
 // https://developers.google.com/web/updates/2016/10/capture-stream
 // https://webrtc.github.io/samples/src/content/getusermedia/record/
