@@ -59,6 +59,45 @@ function startStream(stream) {
     
     document.getElementById("startRecording").addEventListener("click", function(){
         mediaRecorder.start();
+        
+        var minutes = 00;
+        var seconds = 00;
+        var tens = 00;
+        var appendMinutes = document.getElementById("minutes");
+        var appendSeconds = document.getElementById("seconds");
+        var appendTens = document.getElementById("tens");
+        var interval;
+        
+        clearInterval(interval);
+        interval = setInterval(startCounter, 10);
+        
+        function startCounter() {
+            tens++;
+            if (tens < 9){
+                appendTens.innerHTML = "0" + tens;
+            }
+            if (tens > 9){
+                appendTens.innerHTML = tens;
+            }
+            if (tens > 99){
+                seconds++;
+                appendSeconds.innerHTML = "0" + seconds;
+                tens = 0;
+                appendTens.innerHTML = "0" + 0;
+            }
+            if (seconds > 9){
+                appendSeconds.innerHTML = seconds;
+            }
+            if (seconds > 60){
+                minutes++;
+                appendMinutes.innerHTML = "0" + minutes;
+                seconds = 0;
+                appendSeconds.innerHTML = "0" + 0;
+                tens = 0;
+                appendTens.innerHTML = "0" + 0;
+            }
+        }
+        
         console.log("recording started successfully");
     });
     
