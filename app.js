@@ -1,3 +1,5 @@
+
+
 document.getElementById('selectMedia').addEventListener('click', recordClick, false);
 
 //https://developer.chrome.com/extensions/desktopCapture
@@ -57,7 +59,6 @@ function startStream(stream) {
         }
     }
     
-    
     var interval;
     document.getElementById("startRecording").addEventListener("click", function(){
         mediaRecorder.start();
@@ -103,6 +104,18 @@ function startStream(stream) {
         console.log("recording started successfully");
     });
     
+    /*
+    stream.getVideoTracks()[0].onended = function () {
+    // doWhatYouNeedToDo();
+    };
+    */
+    
+    stream.getVideoTracks()[0].onended = function () {
+        console.log("stream ended successfully");
+        mediaRecorder.stop();
+        clearInterval(interval);
+    };
+    
     document.getElementById("stopRecording").addEventListener("click", function(){
         mediaRecorder.stop();
         clearInterval(interval);
@@ -116,7 +129,7 @@ function startStream(stream) {
         const a = document.createElement('a');
         a.style.display = 'none';
         a.href = url;
-        a.download = 'test.webm';
+        a.download = 'captis-video.webm';
         document.body.appendChild(a);
         a.click();
         console.log("download button click recognized");
